@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[25,)"
+issueTrackerURL="http://github.com/xfl03/MoreCrashInfo/issues"
+[[mods]]
+modId="morecrashinfo"
+version="1.0"
+displayName="MoreCrashInfo"
+displayURL="http://github.com/xfl03/MoreCrashInfo" #optional
+credits=""
+authors="xfl03"
+description='''
+Display more info in crash report.
+'''
+[[dependencies.examplemod]]
+    modId="forge"
+    mandatory=true
+    versionRange="[25,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.examplemod]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.13.2,)"
+    ordering="NONE"
+    side="BOTH"
