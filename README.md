@@ -1,18 +1,30 @@
 # MoreCrashInfo
 Display more info in crash report.  
-  
-As we all know, Forge 1.13.2 - 1.14.4 removes mod list and coremod list in crash report, which makes users difficult to analyze what happened.  
-This mod is designed to take it back. More info will be shown in crash report, and feel free to open an issue if other info needed.
+## Why make it?
+Forge 1.13.2 - 1.14.3 removed mod list and coremod list in crash report, while users need them to analyze which mod caused crash.  
+Forge 1.14.4 added mod list back, but it is not formatted. It's hard to read when plenty of mods loaded. Coremods list is still not shown.
+Mod list added by Forge in crash report is shown below:
+```
+Mod List: 
+	CustomSkinLoader_Forge-14.11-SNAPSHOT-89.jar CustomSkinLoader {customskinloader@14.11-SNAPSHOT-89 DONE}
+	MoreCrashInfo-1.0.2.jar MoreCrashInfo {morecrashinfo@1.0.2 DONE}
+	forge-1.14.4-28.0.23-universal.jar Forge {forge@28.0.23 DONE}
+```
+## What added?
+This mod is designed to take mod list and coremod list back with pretty printing.
+Feel free to open an issue if other info needed.
+What added in crash report is shown below:
 ```
 Forge Mods: 
-	| ID               | Name             | Version           | Source                                       | 
-	| ---------------- | ---------------- | ----------------- | -------------------------------------------- | 
-	| minecraft        | Minecraft        | 1.14.3            | Not Found                                    | 
-	| customskinloader | CustomSkinLoader | 14.11-SNAPSHOT-89 | CustomSkinLoader_Forge-14.11-SNAPSHOT-89.jar | 
-	| morecrashinfo    | MoreCrashInfo    | 1.0.1             | MoreCrashInfo-1.0.1.jar                      | 
-	| forge            | Forge            | 27.0.22           | forge-1.14.3-27.0.22-universal.jar           | 
+	| ID               | Name             | Version           | Source                                       | Status | 
+	| ---------------- | ---------------- | ----------------- | -------------------------------------------- | ------ | 
+	| minecraft        | Minecraft        | 1.14.4            | Not Found                                    | NONE   | 
+	| customskinloader | CustomSkinLoader | 14.11-SNAPSHOT-89 | CustomSkinLoader_Forge-14.11-SNAPSHOT-89.jar | DONE   | 
+	| morecrashinfo    | MoreCrashInfo    | 1.0.2             | MoreCrashInfo-1.0.2.jar                      | DONE   | 
+	| forge            | Forge            | 28.0.23           | forge-1.14.4-28.0.23-universal.jar           | DONE   | 
 Forge CoreMods: 
-	| ID               | Name         | Source          | Status | 
-	| ---------------- | ------------ | --------------- | ------ | 
-	| customskinloader | transformers | transformers.js | Loaded | 
+	| ID               | Name                      | Source                       | Status | 
+	| ---------------- | ------------------------- | ---------------------------- | ------ | 
+	| customskinloader | transformers              | transformers.js              | Loaded | 
+	| forge            | fieldtomethodtransformers | fieldtomethodtransformers.js | Loaded | 
 ```

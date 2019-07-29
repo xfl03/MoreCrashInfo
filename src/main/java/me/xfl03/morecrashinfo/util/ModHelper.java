@@ -3,6 +3,8 @@ package me.xfl03.morecrashinfo.util;
 import net.minecraftforge.coremod.CoreMod;
 import net.minecraftforge.coremod.CoreModEngine;
 import net.minecraftforge.coremod.CoreModProvider;
+import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.moddiscovery.CoreModFile;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
@@ -10,6 +12,8 @@ import net.minecraftforge.forgespi.coremod.ICoreModFile;
 import net.minecraftforge.forgespi.coremod.ICoreModProvider;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class ModHelper {
     public static List<CoreMod> getCoreModList() throws Exception {
@@ -41,5 +45,11 @@ public class ModHelper {
         } catch (Exception ignored) {
         }
         return name;
+    }
+
+    public static String getStatus(String modId) {
+        return ModList.get()
+                .getModContainerById(modId).map(ModContainer::getCurrentState).map(Objects::toString)
+                .orElse("NONE");
     }
 }

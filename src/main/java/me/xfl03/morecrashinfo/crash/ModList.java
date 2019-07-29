@@ -18,17 +18,17 @@ public class ModList implements ICrashCallable {
     public String call() throws Exception {
         //Extend mod list text
         List<List<String>> datas = new ArrayList<>();
-        datas.add(PrintHelper.createLine("ID", "Name", "Version", "Source"));
+        datas.add(PrintHelper.createLine("ID", "Name", "Version", "Source", "Status"));
         List<ModInfo> mods = net.minecraftforge.fml.ModList.get().getMods();
         for (ModInfo it : mods) {
             datas.add(PrintHelper.createLine(
                     it.getModId(),
                     it.getDisplayName(),
                     it.getVersion().toString(),
-                    ModHelper.getSource(it)
+                    ModHelper.getSource(it),
+                    ModHelper.getStatus(it.getModId())
             ));
         }
         return PrintHelper.printLine("\n\t\t", datas);
     }
-
 }
