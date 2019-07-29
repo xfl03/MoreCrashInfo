@@ -1,9 +1,9 @@
 # MoreCrashInfo
 Display more info in crash report.  
 ## Why make it?
-Forge 1.13.2 - 1.14.3 removed mod list and coremod list in crash report, while users need them to analyze which mod caused crash.  
-Forge 1.14.4 added mod list back, but it is not formatted. It's hard to read when plenty of mods loaded. Coremods list is still not shown.
-Mod list added by Forge in crash report is shown below:
+Forge 1.13.2 - 1.14.3 removed mod list and coremod list in crash report, while users need them to analyze what caused crash.  
+Forge 1.14.4 added mod list back, but it is not formatted. It's hard to read when plenty of mods loaded. Meanwhile, coremods list is still not shown.  
+Mod list added in Forge 1.14.4 crash report can be shown below:
 ```
 Mod List: 
 	CustomSkinLoader_Forge-14.11-SNAPSHOT-89.jar CustomSkinLoader {customskinloader@14.11-SNAPSHOT-89 DONE}
@@ -11,8 +11,8 @@ Mod List:
 	forge-1.14.4-28.0.23-universal.jar Forge {forge@28.0.23 DONE}
 ```
 ## What added?
-This mod is designed to take mod list and coremod list back with pretty printing.
-Feel free to open an issue if other info needed.
+This mod is designed to take mod list and coremod list back with pretty printing.  
+Feel free to open an issue if other info needed.  
 What added in crash report is shown below:
 ```
 Forge Mods: 
