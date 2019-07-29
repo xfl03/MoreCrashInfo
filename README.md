@@ -9,10 +9,10 @@ Forge Mods:
 	| ---------------- | ---------------- | ----------------- | -------------------------------------------- | 
 	| minecraft        | Minecraft        | 1.14.3            | Not Found                                    | 
 	| customskinloader | CustomSkinLoader | 14.11-SNAPSHOT-89 | CustomSkinLoader_Forge-14.11-SNAPSHOT-89.jar | 
-	| morecrashinfo    | MoreCrashInfo    | 1.0               | MoreCrashInfo-1.0.jar                        | 
+	| morecrashinfo    | MoreCrashInfo    | 1.0.1             | MoreCrashInfo-1.0.1.jar                      | 
 	| forge            | Forge            | 27.0.22           | forge-1.14.3-27.0.22-universal.jar           | 
 Forge CoreMods: 
-	| ID               | Status | Source          | 
-	| ---------------- | ------ | --------------- | 
-	| customskinloader | Loaded | transformers.js | 
+	| ID               | Name         | Source          | Status | 
+	| ---------------- | ------------ | --------------- | ------ | 
+	| customskinloader | transformers | transformers.js | Loaded | 
 ```
