@@ -1,15 +1,17 @@
 package me.xfl03.morecrashinfo.crash;
 
-import me.xfl03.morecrashinfo.util.CoreModHelper;
+import me.xfl03.morecrashinfo.util.ModHelper;
 import me.xfl03.morecrashinfo.util.PrintHelper;
+import me.xfl03.morecrashinfo.util.ReflectionHelper;
 import net.minecraftforge.coremod.CoreMod;
 import net.minecraftforge.fml.common.ICrashCallable;
+import net.minecraftforge.fml.loading.moddiscovery.CoreModFile;
 import net.minecraftforge.forgespi.coremod.ICoreModFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoreModListExtender implements ICrashCallable {
+public class CoreModList implements ICrashCallable {
     @Override
     public String getLabel() {
         return "Forge CoreMods";
@@ -18,27 +20,23 @@ public class CoreModListExtender implements ICrashCallable {
     @Override
     public String call() throws Exception {
         //Get coremod list
-        List<CoreMod> list = CoreModHelper.getCoreModList();
+        List<CoreMod> list = ModHelper.getCoreModList();
         if (list == null || list.isEmpty()) {
             return "Not found";
         }
 
         //Extend coremod list
         List<List<String>> datas = new ArrayList<>();
-        datas.add(PrintHelper.createLine("ID", "Status", "Source"));
+        datas.add(PrintHelper.createLine("ID", "Name", "Source", "Status"));
         for (CoreMod it : list) {
             ICoreModFile f = it.getFile();
             datas.add(PrintHelper.createLine(
                     f.getOwnerId(),
-                    it.hasError() ? "Error" : "Loaded",
-                    getSource(f)
+                    ModHelper.getName(f),
+                    ModHelper.getSource(f),
+                    it.hasError() ? "Error" : "Loaded"
             ));
         }
         return PrintHelper.printLine("\n\t\t", datas);
-    }
-
-    private String getSource(ICoreModFile file) {
-        if (file.getPath() == null) return "Not Found";
-        return file.getPath().getFileName().toString();
     }
 }

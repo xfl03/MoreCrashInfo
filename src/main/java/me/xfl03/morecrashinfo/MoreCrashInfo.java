@@ -1,7 +1,7 @@
 package me.xfl03.morecrashinfo;
 
-import me.xfl03.morecrashinfo.crash.CoreModListExtender;
-import me.xfl03.morecrashinfo.crash.ModListExtender;
+import me.xfl03.morecrashinfo.crash.CoreModList;
+import me.xfl03.morecrashinfo.crash.ModList;
 import net.minecraftforge.fml.CrashReportExtender;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -22,8 +22,8 @@ public class MoreCrashInfo
     {
         LOGGER.debug("MoreCrashInfo: PreInit Begin.");
 
-        CrashReportExtender.registerCrashCallable(new ModListExtender());
-        CrashReportExtender.registerCrashCallable(new CoreModListExtender());
+        CrashReportExtender.registerCrashCallable(new ModList());
+        CrashReportExtender.registerCrashCallable(new CoreModList());
 
         LOGGER.debug("MoreCrashInfo: PreInit End.");
     }
