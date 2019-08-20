@@ -3,9 +3,9 @@ loaderVersion="[25,)"
 issueTrackerURL="http://github.com/xfl03/MoreCrashInfo/issues"
 [[mods]]
 modId="morecrashinfo"
-version="1.0.2"
+version="1.0.3"
 displayName="MoreCrashInfo"
-displayURL="http://github.com/xfl03/MoreCrashInfo" #optional
+displayURL="http://github.com/xfl03/MoreCrashInfo"
 credits=""
 authors="xfl03"
 description='''
@@ -14,7 +14,7 @@ Display more info in crash report.
 [[dependencies.morecrashinfo]]
     modId="forge"
     mandatory=true
-    versionRange="[25,)"
+    versionRange="[25.0.216,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.morecrashinfo]]

@@ -1,19 +1,23 @@
 package me.xfl03.morecrashinfo.util;
 
+import cpw.mods.modlauncher.Launcher;
+import cpw.mods.modlauncher.api.IEnvironment;
 import net.minecraftforge.coremod.CoreMod;
 import net.minecraftforge.coremod.CoreModEngine;
 import net.minecraftforge.coremod.CoreModProvider;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.moddiscovery.CoreModFile;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import net.minecraftforge.forgespi.coremod.ICoreModFile;
 import net.minecraftforge.forgespi.coremod.ICoreModProvider;
+import net.minecraftforge.forgespi.language.IModInfo;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.net.URL;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ModHelper {
     public static List<CoreMod> getCoreModList() throws Exception {
@@ -25,6 +29,11 @@ public class ModHelper {
         CoreModEngine engine = (CoreModEngine) ReflectionHelper.getField(p, "engine");
         List<CoreMod> list = (List<CoreMod>) ReflectionHelper.getField(engine, "coreMods");
         return list;
+    }
+
+    public static String getSource(IModInfo it) {
+        if (it instanceof ModInfo) return getSource((ModInfo) it);
+        return "Not Found";
     }
 
     public static String getSource(ModInfo it) {
@@ -47,9 +56,37 @@ public class ModHelper {
         return name;
     }
 
+    public static Optional<? extends ModContainer> getModContainer(String modId) {
+        return ModList.get().getModContainerById(modId);
+    }
+
     public static String getStatus(String modId) {
-        return ModList.get()
-                .getModContainerById(modId).map(ModContainer::getCurrentState).map(Objects::toString)
-                .orElse("NONE");
+        return getModContainer(modId)
+                .map(ModContainer::getCurrentState).map(Objects::toString).orElse("NONE");
+    }
+
+    public static String getAuditLine(String className) {
+        String name = className.replace('/', '.');
+        return Launcher.INSTANCE.environment().getProperty(IEnvironment.Keys.AUDITTRAIL.get())
+                .map(it -> it.getAuditString(name)).orElse("");
+    }
+
+    public static List<? extends ModContainer> getTransformers(String className) {
+        return Arrays.stream(
+                getAuditLine(className).split(","))
+                .filter(it -> it.startsWith("xf:"))
+                .map(it -> it.split(":"))
+                .filter(it -> it.length > 2)
+                .map(it -> it[1].equals("fml") ? it[2] : it[1])
+                .map(ModHelper::getModContainer)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+    }
+
+    public static Optional<? extends ModContainer> getModByClass(String className) {
+        String path = className.replace('.', '/') + ".class";
+        URL url = ModHelper.class.getClassLoader().getResource(path);
+        return url == null ? Optional.empty() : getModContainer(url.getHost());
     }
 }
