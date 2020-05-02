@@ -29,11 +29,6 @@ public class MoreCrashInfo
     {
         LOGGER.debug("MoreCrashInfo: PreInit Begin.");
 
-        CrashReportExtender.registerCrashCallable(new ModList());
-        CrashReportExtender.registerCrashCallable(new CoreModList());
-
-        CrashHandler.registerHandler(VerifyError.class, VerifyErrorHandler::new);
-
         LOGGER.debug("MoreCrashInfo: PreInit End.");
     }
 

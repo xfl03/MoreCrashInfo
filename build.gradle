@@ -10,7 +10,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle'
 
-version = '1.0.3'
+version = '1.0.4'
 group = 'me.xfl03'
 archivesBaseName = 'MoreCrashInfo'
 

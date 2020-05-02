@@ -1,15 +1,25 @@
 package me.xfl03.morecrashinfo.handler;
 
 import cpw.mods.modlauncher.log.TransformingThrowablePatternConverter;
+import me.xfl03.morecrashinfo.crash.CoreModList;
+import me.xfl03.morecrashinfo.crash.ModList;
 import me.xfl03.morecrashinfo.handler.exception.*;
 import net.minecraft.crash.CrashReport;
+import net.minecraftforge.fml.CrashReportExtender;
 
 import java.util.*;
 import java.util.function.Function;
 
 public class CrashHandler {
-
     private static Map<Class, Function<Throwable, ExceptionHandler>> handlers = new HashMap<>();
+
+    static {
+        CrashHandler.registerHandler(VerifyError.class, VerifyErrorHandler::new);
+
+        CrashReportExtender.registerCrashCallable(new ModList());
+        CrashReportExtender.registerCrashCallable(new CoreModList());
+    }
+
     private static ExceptionHandler handler;
 
     public static void registerHandler(Class exception, Function<Throwable, ExceptionHandler> handler) {
