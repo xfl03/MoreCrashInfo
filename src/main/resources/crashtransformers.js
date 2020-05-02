@@ -46,6 +46,7 @@ function initializeCoreMod() {
 
                 //Uncomment to cause java.lang.VerifyError
                 //cn.methods.forEach(function (mn) { mn.instructions.clear(); mn.instructions.add(new InsnNode(Opcodes.ARETURN)); });
+                return cn;
             }
         }
     }
