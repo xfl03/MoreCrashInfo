@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.function.Function;
 
 public class CrashHandler {
-    private static Map<Class, Function<Throwable, ExceptionHandler>> handlers = new HashMap<>();
+    private static final Map<Class<?>, Function<Throwable, ExceptionHandler>> handlers = new HashMap<>();
 
     static {
         CrashHandler.registerHandler(VerifyError.class, VerifyErrorHandler::new);
@@ -22,13 +22,13 @@ public class CrashHandler {
 
     private static ExceptionHandler handler;
 
-    public static void registerHandler(Class exception, Function<Throwable, ExceptionHandler> handler) {
+    public static void registerHandler(Class<?> exception, Function<Throwable, ExceptionHandler> handler) {
         handlers.put(exception, handler);
     }
 
     // net.minecraftforge.fml.CrashReportExtender.addCrashReportHeader
     public static void addCrashReportHeader(StringBuilder stringbuilder, CrashReport crashReport) {
-        Throwable cause = crashReport.getCrashCause();
+        Throwable cause = crashReport.getException();
         handler = Optional.ofNullable(handlers.get(cause.getClass()))
                 .orElse(ExceptionHandler::new).apply(cause);
         handler.handleHeader(stringbuilder);

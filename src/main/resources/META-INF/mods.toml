@@ -3,11 +3,12 @@ loaderVersion="[25,)"
 issueTrackerURL="http://github.com/xfl03/MoreCrashInfo/issues"
 [[mods]]
 modId="morecrashinfo"
-version="1.0.4"
+version="1.1.0"
 displayName="MoreCrashInfo"
 displayURL="http://github.com/xfl03/MoreCrashInfo"
 credits=""
 authors="xfl03"
+license="GPL-3.0-only"
 description='''
 Display more info in crash report.
 '''
