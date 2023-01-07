@@ -43,6 +43,13 @@ function initializeCoreMod() {
                 'name': 'net/minecraftforge/fmllegacy/CrashReportExtender'
             },
             'transformer': transformCrashReportExtenderTransformer
+        },
+        'CrashReportExtenderTransformer 18': {
+            'target': {
+                'type': 'CLASS',
+                'name': 'net/minecraftforge/logging/CrashReportExtender'
+            },
+            'transformer': transformCrashReportExtenderTransformer
         }
     }
 }
