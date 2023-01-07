@@ -2,16 +2,15 @@ package me.xfl03.morecrashinfo.crash;
 
 import me.xfl03.morecrashinfo.util.ModHelper;
 import me.xfl03.morecrashinfo.util.PrintHelper;
-import me.xfl03.morecrashinfo.util.ReflectionHelper;
 import net.minecraftforge.coremod.CoreMod;
+import net.minecraftforge.fml.ISystemReportExtender;
 import net.minecraftforge.fml.common.ICrashCallable;
-import net.minecraftforge.fml.loading.moddiscovery.CoreModFile;
 import net.minecraftforge.forgespi.coremod.ICoreModFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoreModList implements ICrashCallable {
+public class CoreModList implements ICrashCallable, ISystemReportExtender {
     @Override
     public String getLabel() {
         return "Forge CoreMods";
@@ -38,5 +37,14 @@ public class CoreModList implements ICrashCallable {
             ));
         }
         return PrintHelper.printLine("\n\t\t", datas);
+    }
+
+    @Override
+    public String get() {
+        try {
+            return call();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

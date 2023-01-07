@@ -35,13 +35,13 @@ You can open an issue to submit crash report, I will try my best to find the way
 What added for some crash:
 ```
 Possible Reason:
-	Bytecode in class 'me.xfl03.morecrashinfo.util.CrashMaker' failed to verify. 
+	Bytecode in class 'me.xfl03.crashmaker.CrashMaker' failed to verify. 
 	CoreMod 'MoreCrashInfo' modified that class, which may cause crash.
 Possible Solution:
 	Please remove or update 'MoreCrashInfo(MoreCrashInfo-1.0.3.jar)' and try again.
 
 Error Info:
-	Class: me.xfl03.morecrashinfo.util.CrashMaker
+	Class: me.xfl03.crashmaker.CrashMaker
 	Owner: MoreCrashInfo
 	Audit: xf:fml:morecrashinfo:CrashMakerTransformer
 ```

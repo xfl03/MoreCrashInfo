@@ -7,7 +7,6 @@ import net.minecraftforge.coremod.CoreModEngine;
 import net.minecraftforge.coremod.CoreModProvider;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.moddiscovery.CoreModFile;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
@@ -27,8 +26,7 @@ public class ModHelper {
 
         //Reflect to get coremod list
         CoreModEngine engine = (CoreModEngine) ReflectionHelper.getField(p, "engine");
-        List<CoreMod> list = (List<CoreMod>) ReflectionHelper.getField(engine, "coreMods");
-        return list;
+        return (List<CoreMod>) ReflectionHelper.getField(engine, "coreMods");
     }
 
     public static String getSource(IModInfo it) {

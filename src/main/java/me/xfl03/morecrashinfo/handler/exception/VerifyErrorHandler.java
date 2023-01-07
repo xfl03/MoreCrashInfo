@@ -3,8 +3,6 @@ package me.xfl03.morecrashinfo.handler.exception;
 import me.xfl03.morecrashinfo.handler.ExceptionHandler;
 import me.xfl03.morecrashinfo.util.ModHelper;
 import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import net.minecraftforge.forgespi.language.IModInfo;
 
 import java.util.List;
@@ -12,9 +10,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class VerifyErrorHandler extends ExceptionHandler {
-    private String className;
-    private List<? extends ModContainer> transformers;
-    private Optional<? extends ModContainer> owner;
+    private final String className;
+    private final List<? extends ModContainer> transformers;
+    private final Optional<? extends ModContainer> owner;
 
     public VerifyErrorHandler(Throwable cause) {
         super(cause);
