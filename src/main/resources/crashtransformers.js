@@ -1,12 +1,15 @@
 var InsnNode = Java.type('org.objectweb.asm.tree.InsnNode');
 var MethodInsnNode = Java.type('org.objectweb.asm.tree.MethodInsnNode');
 var VarInsnNode = Java.type('org.objectweb.asm.tree.VarInsnNode');
-
 var Opcodes = Java.type('org.objectweb.asm.Opcodes');
 
+var ASMAPI = Java.type('net.minecraftforge.coremod.api.ASMAPI');
+
 function transformCrashReportExtenderTransformer(cn) {
+    ASMAPI.log("INFO", "Transform class {}", cn.name);
     cn.methods.forEach(function (mn) {
-        if (mn.name === 'addCrashReportHeader') {
+        if (mn.name === 'addCrashReportHeader' && mn.desc === '(Ljava/lang/StringBuilder;Lnet/minecraft/crash/CrashReport;)V') {
+            ASMAPI.log("INFO", "Transform method {} {}", mn.name, mn.desc);
             mn.instructions.clear();
             mn.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
             mn.instructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
@@ -15,7 +18,20 @@ function transformCrashReportExtenderTransformer(cn) {
                 "addCrashReportHeader",
                 "(Ljava/lang/StringBuilder;Lnet/minecraft/crash/CrashReport;)V", false));
             mn.instructions.add(new InsnNode(Opcodes.RETURN));
+            ASMAPI.log("INFO", "Transform method finished");
+        } else if (mn.name === 'addCrashReportHeader' && mn.desc === '(Ljava/lang/StringBuilder;Lnet/minecraft/CrashReport;)V') {
+            ASMAPI.log("INFO", "Transform method {} {}", mn.name, mn.desc);
+            mn.instructions.clear();
+            mn.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+            mn.instructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
+            mn.instructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC,
+                "me/xfl03/morecrashinfo/handler/CrashHandler",
+                "addCrashReportHeader",
+                "(Ljava/lang/StringBuilder;Lnet/minecraft/CrashReport;)V", false));
+            mn.instructions.add(new InsnNode(Opcodes.RETURN));
+            ASMAPI.log("INFO", "Transform method finished");
         } else if (mn.name === 'generateEnhancedStackTrace' && mn.desc === '(Ljava/lang/Throwable;)Ljava/lang/String;') {
+            ASMAPI.log("INFO", "Transform method {} {}", mn.name, mn.desc);
             mn.instructions.clear();
             mn.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
             mn.instructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC,
@@ -23,8 +39,10 @@ function transformCrashReportExtenderTransformer(cn) {
                 "generateEnhancedStackTrace",
                 "(Ljava/lang/Throwable;)Ljava/lang/String;", false));
             mn.instructions.add(new InsnNode(Opcodes.ARETURN));
+            ASMAPI.log("INFO", "Transform method finished");
         }
     });
+    ASMAPI.log("INFO", "Transform class finished");
     return cn;
 }
 

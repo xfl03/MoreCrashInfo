@@ -76,7 +76,7 @@ dependencies {
 }
 
 jar {
-    exclude('net/minecraftforge/**')
+    exclude('net/**')
     manifest {
         attributes([
             "Specification-Title": "morecrashinfo",

@@ -38,7 +38,7 @@ public class ModList implements ICrashCallable, ISystemReportExtender {
         try {
             return call();
         } catch (Exception e) {
-            return null;
+            return e.toString();
         }
     }
 }
