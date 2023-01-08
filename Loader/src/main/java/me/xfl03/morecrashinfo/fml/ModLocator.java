@@ -5,16 +5,37 @@ import net.minecraftforge.fml.loading.moddiscovery.AbstractJarFileModLocator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Map;
 import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class ModLocator extends AbstractJarFileModLocator {
     private final Logger logger = LogManager.getLogger("MoreCrashInfoModLocator");
     private Path modPath = null;
+
+    private void unzip(ZipFile zip, ZipEntry entry, Path target) {
+        try {
+            Path dir = target.getParent();
+            if (Files.notExists(dir)) {
+                Files.createDirectories(dir);
+            }
+        } catch (Exception e) {
+            logger.warn("Error mkdir {}", target);
+            logger.warn(e);
+        }
+
+        try (InputStream in = zip.getInputStream(entry)) {
+            Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            logger.warn("Error unzip {}", target);
+            logger.warn(e);
+        }
+    }
 
     private void visitModFile(Path path) {
 //        logger.info("Try to Visit {} {} {}", path, Files.isRegularFile(path), path.toString().endsWith(".jar"));
@@ -23,12 +44,15 @@ public class ModLocator extends AbstractJarFileModLocator {
         }
         try (ZipFile zip = new ZipFile(new File(path.toUri()))) {
 //            logger.info("Visiting {}", path);
-            if (zip.getEntry("me/xfl03/morecrashinfo/MoreCrashInfo.class") != null) {
+            ZipEntry ze = zip.getEntry("MoreCrashInfo-Core.jar");
+            if (ze != null) {
                 logger.info("MoreCrashInfo mod found at {}", path);
-                modPath = path;
+                modPath = FMLPaths.GAMEDIR.get().resolve("tmp/MoreCrashInfo-Core.jar");
+                unzip(zip, ze, modPath);
             }
         } catch (Exception e) {
             logger.warn("Error while loading {}", path);
+            logger.warn(e);
         }
     }
 
@@ -37,6 +61,7 @@ public class ModLocator extends AbstractJarFileModLocator {
             paths.forEach(this::visitModFile);
         } catch (Exception e) {
             logger.warn("Error while visiting mod dir");
+            logger.warn(e);
         }
     }
 
@@ -46,7 +71,7 @@ public class ModLocator extends AbstractJarFileModLocator {
         logger.warn("Mod folder {}", modFolder);
         visitModDir(modFolder);
         logger.warn("Mod path {}", modPath);
-        return Stream.ofNullable(modPath);
+        return modPath == null ? Stream.empty() : Stream.of(modPath);
     }
 
     @Override

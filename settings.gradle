@@ -6,4 +6,4 @@ pluginManagement {
 }
 //include "CrashMaker"
 include "ForgeApi"
-include "Core"
+include "Loader"

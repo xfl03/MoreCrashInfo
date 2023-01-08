@@ -14,23 +14,26 @@ import java.util.Set;
 public class CrashReportExtenderTransformer implements ITransformer<MethodNode> {
     private static MethodNode redirectStaticMethod(MethodNode method, String className) {
         Type[] args = Type.getArgumentTypes(method.desc);
+
+        //Find last useful instruction opcode, which can be used in return
         int returnOp = -1;
         for (AbstractInsnNode insnNode : method.instructions) {
             if (insnNode.getOpcode() != -1) {
                 returnOp = insnNode.getOpcode();
             }
         }
+
         method.instructions.clear();
 //        method.maxStack = Math.max(argNum, returnOp == Opcodes.RETURN ? 0 : 1);
 
         for (int i = 0; i < args.length; ++i) {
-            TransformerService.logger.info("ALOAD {}", i);
+//            TransformerService.logger.info("ALOAD {}", i);
             method.instructions.add(new VarInsnNode(Opcodes.ALOAD, i));
         }
-        TransformerService.logger.info("INVOKESTATIC {} {} {}", className, method.name, method.desc);
+//        TransformerService.logger.info("INVOKESTATIC {} {} {}", className, method.name, method.desc);
         method.instructions.add(new MethodInsnNode(
                 Opcodes.INVOKESTATIC, className, method.name, method.desc, false));
-        TransformerService.logger.info("{}", returnOp);
+//        TransformerService.logger.info("{}", returnOp);
         method.instructions.add(new InsnNode(returnOp));
 
         return method;

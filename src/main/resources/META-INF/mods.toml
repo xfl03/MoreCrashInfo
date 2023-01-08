@@ -4,7 +4,7 @@ issueTrackerURL="http://github.com/xfl03/MoreCrashInfo/issues"
 license="GPL-3.0-only"
 [[mods]]
 modId="morecrashinfo"
-version="1.1.0"
+version="2.0.0"
 displayName="MoreCrashInfo"
 displayURL="http://github.com/xfl03/MoreCrashInfo"
 credits=""
