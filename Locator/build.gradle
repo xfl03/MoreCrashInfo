@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+}
+
+version = rootProject.version
+group = 'me.xfl03'
+archivesBaseName = 'MoreCrashInfo'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'forge'
+        url = 'https://maven.minecraftforge.net/'
+    }
+    maven {
+        name = 'minecraft'
+        url = 'https://libraries.minecraft.net/'
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+    disableAutoTargetJvm()
+}
+
+compileJava {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
+
+dependencies {
+    implementation("net.minecraftforge:fmlloader:1.19.3-44.1.2")
+    implementation 'org.jetbrains:annotations:23.1.0'
+}
+
+jar {
+    archiveFileName = "MoreCrashInfo-Locator.jar"
+}

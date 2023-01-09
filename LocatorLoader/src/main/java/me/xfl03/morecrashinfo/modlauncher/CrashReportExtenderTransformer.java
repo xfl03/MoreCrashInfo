@@ -17,11 +17,13 @@ public class CrashReportExtenderTransformer implements ITransformer<MethodNode> 
 
         //Find last useful instruction opcode, which can be used in return
         int returnOp = -1;
-        for (AbstractInsnNode insnNode : method.instructions) {
+        AbstractInsnNode insnNode = method.instructions.getFirst();
+        do {
             if (insnNode.getOpcode() != -1) {
                 returnOp = insnNode.getOpcode();
             }
-        }
+            insnNode = insnNode.getNext();
+        } while (insnNode != null);
 
         method.instructions.clear();
 //        method.maxStack = Math.max(argNum, returnOp == Opcodes.RETURN ? 0 : 1);
@@ -41,7 +43,7 @@ public class CrashReportExtenderTransformer implements ITransformer<MethodNode> 
 
     @Override
     public @NotNull MethodNode transform(MethodNode input, ITransformerVotingContext context) {
-        TransformerService.logger.info("Transforming {} {}", input.name, input.desc);
+        TransformerService.logger.info("Transforming method {} {}", input.name, input.desc);
         return redirectStaticMethod(input, "me/xfl03/morecrashinfo/handler/CrashHandler");
     }
 

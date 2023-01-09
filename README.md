@@ -45,3 +45,21 @@ Error Info:
 	Owner: MoreCrashInfo
 	Audit: xf:fml:morecrashinfo:CrashMakerTransformer
 ```
+
+## Compatibility
+- Minecraft 1.13+
+- Java 8+
+
+### Tested Environment
+- Minecraft 1.19.3, Forge 44.1.0 and Java 17
+
+## Develop
+This mod implemented a powerful ASM-based remapping and custom jar detection feature to support cross-version Minecraft and Forge.
+
+Please use Java 17+ in development or building environment.
+
+### Build
+```shell
+./gradlew build
+```
+Mod file is located at `LocatorLoader/build/libs`.

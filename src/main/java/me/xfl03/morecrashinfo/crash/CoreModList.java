@@ -3,18 +3,18 @@ package me.xfl03.morecrashinfo.crash;
 import me.xfl03.morecrashinfo.util.ModHelper;
 import me.xfl03.morecrashinfo.util.PrintHelper;
 import net.minecraftforge.coremod.CoreMod;
+import net.minecraftforge.fml.ISystemReportExtender;
 import net.minecraftforge.forgespi.coremod.ICoreModFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoreModList implements CustomCrashExtender {
+public class CoreModList implements ISystemReportExtender {
     @Override
     public String getLabel() {
         return "Forge CoreMods";
     }
 
-    @Override
     public String call() throws Exception {
         //Get coremod list
         List<CoreMod> list = ModHelper.getCoreModList();

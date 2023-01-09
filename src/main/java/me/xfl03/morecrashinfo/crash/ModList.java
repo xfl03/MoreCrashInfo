@@ -2,18 +2,18 @@ package me.xfl03.morecrashinfo.crash;
 
 import me.xfl03.morecrashinfo.util.ModHelper;
 import me.xfl03.morecrashinfo.util.PrintHelper;
+import net.minecraftforge.fml.ISystemReportExtender;
 import net.minecraftforge.forgespi.language.IModInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModList implements CustomCrashExtender {
+public class ModList implements ISystemReportExtender {
     @Override
     public String getLabel() {
         return "Forge Mods";
     }
 
-    @Override
     public String call() throws Exception {
         //Extend mod list text
         List<List<String>> datas = new ArrayList<>();
