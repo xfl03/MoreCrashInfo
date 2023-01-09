@@ -18,6 +18,18 @@ repositories {
     }
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+    disableAutoTargetJvm()
+}
+
+compileJava {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
+
 dependencies {
     implementation "net.minecraftforge:fmlloader:1.19.3-44.1.2"
     implementation 'org.jetbrains:annotations:23.1.0'

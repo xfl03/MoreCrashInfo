@@ -8,8 +8,18 @@ version = "2.0.0"
 group = 'me.xfl03'
 archivesBaseName = 'MoreCrashInfo_Core'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+    disableAutoTargetJvm()
+}
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+
+compileJava {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
 
 minecraft {
     mappings channel: 'official', version: '1.19.3'
@@ -81,13 +91,13 @@ jar {
     exclude('net/**')
     manifest {
         attributes([
-            "Specification-Title": "morecrashinfo",
-            "Specification-Vendor": "xfl03",
-            "Specification-Version": "1",
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"xfl03",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Specification-Title"     : "morecrashinfo",
+                "Specification-Vendor"    : "xfl03",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : "${version}",
+                "Implementation-Vendor"   : "xfl03",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
