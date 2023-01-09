@@ -27,10 +27,7 @@ public class JarRemapper {
             mapping.put("net/minecraftforge/fml/CrashReportCallables", "net/minecraftforge/fml/CrashReportExtender");
             mapping.put("net/minecraftforge/fml/ISystemReportExtender", "net/minecraftforge/fml/common/ICrashCallable");
             mapping.put("net/minecraft/CrashReport", "net/minecraft/crash/CrashReport");
-            mapping.put("net/minecraft/CrashReport.m_127524_()Ljava/lang/Throwable", "func_71505_b");
-            mapping.put("net.minecraft.CrashReport.m_127524_()Ljava/lang/Throwable", "func_71505_b");
-            mapping.put("net/minecraft/crash/CrashReport.m_127524_()Ljava/lang/Throwable", "func_71505_b");
-            mapping.put("net.minecraft.crash.CrashReport.m_127524_()Ljava/lang/Throwable", "func_71505_b");
+            mapping.put("net/minecraft/CrashReport.m_127524_()Ljava/lang/Throwable;", "func_71505_b");
         }
         remapper = new SimpleRemapper(mapping);
     }
