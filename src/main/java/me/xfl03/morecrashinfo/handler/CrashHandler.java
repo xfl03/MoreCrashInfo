@@ -2,37 +2,24 @@ package me.xfl03.morecrashinfo.handler;
 
 import cpw.mods.modlauncher.log.TransformingThrowablePatternConverter;
 import me.xfl03.morecrashinfo.MoreCrashInfo;
-import me.xfl03.morecrashinfo.crash.CoreModList;
-import me.xfl03.morecrashinfo.crash.ModList;
+import me.xfl03.morecrashinfo.crash.*;
 import me.xfl03.morecrashinfo.handler.exception.*;
 import me.xfl03.morecrashinfo.util.ReflectionHelper;
-import net.minecraftforge.fml.ISystemReportExtender;
+import me.xfl03.morecrashinfo.util.VersionUtil;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class CrashHandler {
     private static final Map<Class<?>, Function<Throwable, ExceptionHandler>> handlers = new HashMap<>();
 
+    private static void initHandlers() {
+        registerHandler(VerifyError.class, VerifyErrorHandler::new);
+    }
+
     static {
-        try {
-            MoreCrashInfo.logger.info("CrashHandler.static");
-            CrashHandler.registerHandler(VerifyError.class, VerifyErrorHandler::new);
-
-            List<ISystemReportExtender> callables = ReflectionHelper.getCallables();
-            callables.add(new ModList());
-            callables.add(new CoreModList());
-            MoreCrashInfo.logger.debug("Callable list size {}", callables.size());
-            MoreCrashInfo.logger.debug("Callable list member {}", callables.stream()
-                    .map(ISystemReportExtender::getLabel).collect(Collectors.joining(", ")));
-
-            ReflectionHelper.printCallables();
-//            ReflectionHelper.testCallables();
-        } catch (Exception e) {
-            MoreCrashInfo.logger.warn("Error register callable");
-            MoreCrashInfo.logger.warn(e);
-        }
+        initHandlers();
+        CallableManager.initCallables();
     }
 
     private static ExceptionHandler handler;
@@ -60,6 +47,10 @@ public class CrashHandler {
         StringBuilder stringbuilder = new StringBuilder();
         handler.handleException(stringbuilder);
         stringbuilder.append(TransformingThrowablePatternConverter.generateEnhancedStackTrace(throwable));
+        //In 1.13-1.14, add callables message here
+        if (VersionUtil.getMinecraftMajorVersion() <= 14) {
+            stringbuilder.append(CallableManager.getCallableMessages());
+        }
         return stringbuilder.toString();
     }
 }

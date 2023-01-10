@@ -8,7 +8,7 @@ import net.minecraftforge.forgespi.language.IModInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModList extends CommonCrash {
+public class ModList extends CommonCallable {
     @Override
     public String getLabel() {
         return "Forge Mods";

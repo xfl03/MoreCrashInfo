@@ -2,7 +2,7 @@ package me.xfl03.morecrashinfo.crash;
 
 import net.minecraftforge.fml.ISystemReportExtender;
 
-public abstract class CommonCrash implements ISystemReportExtender {
+public abstract class CommonCallable implements ISystemReportExtender {
     abstract String innerCall() throws Exception;
 
     public Object call() throws Exception {

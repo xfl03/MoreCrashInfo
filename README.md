@@ -10,23 +10,30 @@ Mod List:
 	MoreCrashInfo-1.0.2.jar MoreCrashInfo {morecrashinfo@1.0.2 DONE}
 	forge-1.14.4-28.0.23-universal.jar Forge {forge@28.0.23 DONE}
 ```
+
+From Forge 1.15.2, mods can use Mixin to operate class file, which could cause crash, but it's not shown in crash report.
 ## What added?
-This mod is designed to take mod list and coremod list back with pretty printing.  
+This mod is designed to show mod list, coremod list and mixin list in crash report with pretty printing.  
 Feel free to open an issue if other info needed.  
 What added in crash report:
 ```
 Forge Mods: 
-	| ID               | Name             | Version           | Source                                       | Status | 
-	| ---------------- | ---------------- | ----------------- | -------------------------------------------- | ------ | 
-	| minecraft        | Minecraft        | 1.14.4            | Not Found                                    | NONE   | 
-	| customskinloader | CustomSkinLoader | 14.11-SNAPSHOT-89 | CustomSkinLoader_Forge-14.11-SNAPSHOT-89.jar | DONE   | 
-	| morecrashinfo    | MoreCrashInfo    | 1.0.2             | MoreCrashInfo-1.0.2.jar                      | DONE   | 
-	| forge            | Forge            | 28.0.23           | forge-1.14.4-28.0.23-universal.jar           | DONE   | 
-Forge CoreMods: 
-	| ID               | Name                      | Source                       | Status | 
-	| ---------------- | ------------------------- | ---------------------------- | ------ | 
-	| customskinloader | transformers              | transformers.js              | Loaded | 
-	| forge            | fieldtomethodtransformers | fieldtomethodtransformers.js | Loaded | 
+	| ID               | Name             | Version           | Source                                | Status | 
+	| ---------------- | ---------------- | ----------------- | ------------------------------------- | ------ | 
+	| minecraft        | Minecraft        | 1.19.3            | client-1.19.3-20221207.122022-srg.jar | DONE   | 
+	| morecrashinfo    | MoreCrashInfo    | 2.2.0             | MoreCrashInfo-Core.jar                | DONE   | 
+	| forge            | Forge            | 44.1.2            | forge-1.19.3-44.1.2-universal.jar     | DONE   | 
+	| rubidium         | Rubidium         | 0.6.3             | rubidium-0.6.3.jar                    | DONE   | 
+Forge CoreMods:
+	| ID    | Name                | Source                 | Status | 
+	| ----- | ------------------- | ---------------------- | ------ | 
+	| forge | field_to_method     | field_to_method.js     | Loaded | 
+	| forge | field_to_instanceof | field_to_instanceof.js | Loaded | 
+	| forge | add_bouncer_method  | add_bouncer_method.js  | Loaded | 
+Mixin Configs:
+	| Name                 | Mixin Package                    | Priority | Required | Targets | 
+	| -------------------- | -------------------------------- | -------- | -------- | ------- | 
+	| rubidium.mixins.json | me.jellysquid.mods.sodium.mixin. | 1000     | true     | 41      | 
 ```
 ## What's more?
 We are trying to analyze some crash automaticly.  
@@ -47,10 +54,8 @@ Error Info:
 ```
 
 ## Compatibility
-- Minecraft 1.15+ with Forge
+- Minecraft 1.13+ with Forge
 - Java 8+
-
-In addition, this mod can be loaded in 1.13.2-1.14.4, but not work. We are trying to find out the reason.
 
 ### Tested Environment
 - Minecraft 1.16.5, Forge 36.2.39 and Java 8

@@ -33,7 +33,7 @@ public class TransformerService implements ITransformationService {
     @Override
     public void onLoad(IEnvironment env, Set<String> otherServices) throws IncompatibleEnvironmentException {
         logger = LogManager.getLogger("MoreCrashInfoTransformerService");
-        logger.info("We are now at MoreCrashInfo TransformationService");
+        logger.debug("We are now at MoreCrashInfo TransformationService");
     }
 
     public static Path corePath;

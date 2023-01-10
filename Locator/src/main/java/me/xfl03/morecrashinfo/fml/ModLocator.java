@@ -163,7 +163,7 @@ public class ModLocator extends AbstractJarFileModLocator {
     //1.17+
     @Override
     public Stream<Path> scanCandidates() {
-        logger.info("We are now at MoreCrashInfo ModLocator");
+        logger.debug("We are now at MoreCrashInfo ModLocator");
         Path gameFolder = FMLPaths.GAMEDIR.get();
         logger.debug("Game folder {}", gameFolder);
         Path modFolder = FMLPaths.MODSDIR.get();

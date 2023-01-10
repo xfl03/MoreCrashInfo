@@ -8,7 +8,7 @@ import net.minecraftforge.forgespi.coremod.ICoreModFile;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoreModList extends CommonCrash {
+public class CoreModList extends CommonCallable {
     @Override
     public String getLabel() {
         return "Forge CoreMods";
