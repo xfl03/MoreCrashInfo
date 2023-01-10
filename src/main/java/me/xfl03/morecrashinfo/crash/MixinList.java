@@ -30,6 +30,10 @@ public class MixinList extends CommonCallable {
             return "Error getting mixin config: " + e;
         }
 
+        if (configs == null || configs.isEmpty()) {
+            return "Not found";
+        }
+
         List<List<String>> datas = new ArrayList<>();
         datas.add(PrintHelper.createLine("Name", "Mixin Package", "Priority", "Required", "Targets"));
         for (Object config : configs) {

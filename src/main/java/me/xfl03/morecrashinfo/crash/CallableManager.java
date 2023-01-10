@@ -50,7 +50,7 @@ public class CallableManager {
         for (CommonCallable callable : callables) {
             sb.append("\t");
             sb.append(callable.getLabel());
-            sb.append(":");
+            sb.append(": ");
             sb.append(callable.get());
             sb.append("\n");
         }

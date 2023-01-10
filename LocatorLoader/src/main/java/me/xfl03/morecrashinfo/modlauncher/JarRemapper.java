@@ -23,8 +23,10 @@ public class JarRemapper {
     public JarRemapper() {
         int minecraftMajorVersion = VersionUtil.getMinecraftMajorVersion();
         Map<String, String> mapping = new HashMap<>();
-        if (minecraftMajorVersion <= 16) {
+        if (minecraftMajorVersion <= 17) {
             mapping.put("net/minecraftforge/fml/loading/moddiscovery/AbstractJarFileModLocator", "net/minecraftforge/fml/loading/moddiscovery/AbstractJarFileLocator");
+        }
+        if (minecraftMajorVersion <= 16) {
             mapping.put("me/xfl03/morecrashinfo/fml/ModLocator.scanModsLegacy()Ljava/util/List;", "scanMods");
         }
         if (minecraftMajorVersion == 13) {

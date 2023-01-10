@@ -54,12 +54,19 @@ Error Info:
 ```
 
 ## Compatibility
-- Minecraft 1.13+ with Forge
-- Java 8+
+- Minecraft 1.13.2~1.16.5 & 1.18~1.19.3 with Forge
+- Java 8~19
 
 ### Tested Environment
-- Minecraft 1.16.5, Forge 36.2.39 and Java 8
-- Minecraft 1.19.3, Forge 44.1.2 and Java 17
+
+| Minecraft |  Forge   | Java |
+|:---------:|:--------:|:----:|
+|  1.19.3   |  44.1.2  |  17  |
+|  1.18.2   |  40.2.0  |  17  |
+|  1.16.5   | 36.2.39  |  8   |
+|  1.15.2   | 31.2.57  |  8   |
+|  1.14.4   | 28.2.26  |  8   |
+|  1.13.2   | 25.0.223 |  8   |
 
 ## Develop
 This mod implemented a powerful ASM-based remapping and custom jar detection feature to support cross-version Minecraft and Forge.
