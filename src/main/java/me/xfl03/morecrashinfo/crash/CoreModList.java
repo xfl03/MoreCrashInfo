@@ -3,19 +3,18 @@ package me.xfl03.morecrashinfo.crash;
 import me.xfl03.morecrashinfo.util.ModHelper;
 import me.xfl03.morecrashinfo.util.PrintHelper;
 import net.minecraftforge.coremod.CoreMod;
-import net.minecraftforge.fml.ISystemReportExtender;
 import net.minecraftforge.forgespi.coremod.ICoreModFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoreModList implements ISystemReportExtender {
+public class CoreModList extends CommonCrash {
     @Override
     public String getLabel() {
         return "Forge CoreMods";
     }
 
-    public String call() throws Exception {
+    public String innerCall() throws Exception {
         //Get coremod list
         List<CoreMod> list = ModHelper.getCoreModList();
         if (list == null || list.isEmpty()) {
@@ -35,14 +34,5 @@ public class CoreModList implements ISystemReportExtender {
             ));
         }
         return PrintHelper.printLine("\n\t\t", datas);
-    }
-
-    @Override
-    public String get() {
-        try {
-            return call();
-        } catch (Exception e) {
-            return e.toString();
-        }
     }
 }
