@@ -36,6 +36,8 @@ public class TransformerService implements ITransformationService {
         logger.info("We are now at MoreCrashInfo TransformationService");
     }
 
+    public static Path corePath;
+
     private Path gameDir;
 
     @Override
@@ -44,12 +46,16 @@ public class TransformerService implements ITransformationService {
         if (gamedir.isPresent()) {
             gameDir = gamedir.get();
             visitModDir(gameDir.resolve("mods"));
-            logger.info("Mod path {}", modPath);
+            logger.debug("Mod path {}", modPath);
             if (modPath == null) {
                 return;
             }
-            logger.info("Minecraft version {} major {}",
+            logger.debug("Minecraft version {} major {}",
                     VersionUtil.getMinecraftVersion(), VersionUtil.getMinecraftMajorVersion());
+            if (VersionUtil.getMinecraftMajorVersion() >= 17) {
+                logger.debug("Minecraft Version is 1.17-1.19, don't need extra Locator.");
+                return;
+            }
             Path mapped = gameDir.resolve(
                     String.format("tmp/MoreCrashInfo-Locator-%s.jar", VersionUtil.getMinecraftVersion()));
             JarRemapper remapper = new JarRemapper();
@@ -102,6 +108,11 @@ public class TransformerService implements ITransformationService {
             if (ze != null) {
                 modPath = gameDir.resolve("tmp/MoreCrashInfo-Locator.jar");
                 unzip(zip, ze, modPath);
+            }
+            ze = zip.getEntry("MoreCrashInfo-Core.jar");
+            if (ze != null) {
+                corePath = gameDir.resolve("tmp/MoreCrashInfo-Core.jar");
+                unzip(zip, ze, corePath);
             }
         } catch (Exception e) {
             logger.warn("Error while loading {}", path);

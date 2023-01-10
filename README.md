@@ -47,11 +47,14 @@ Error Info:
 ```
 
 ## Compatibility
-- Minecraft 1.13+
+- Minecraft 1.15+ with Forge
 - Java 8+
 
+In addition, this mod can be loaded in 1.13.2-1.14.4, but not work. We are trying to find out the reason.
+
 ### Tested Environment
-- Minecraft 1.19.3, Forge 44.1.0 and Java 17
+- Minecraft 1.16.5, Forge 36.2.39 and Java 8
+- Minecraft 1.19.3, Forge 44.1.2 and Java 17
 
 ## Develop
 This mod implemented a powerful ASM-based remapping and custom jar detection feature to support cross-version Minecraft and Forge.

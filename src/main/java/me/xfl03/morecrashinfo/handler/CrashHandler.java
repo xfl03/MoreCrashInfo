@@ -23,12 +23,12 @@ public class CrashHandler {
             List<ISystemReportExtender> callables = ReflectionHelper.getCallables();
             callables.add(new ModList());
             callables.add(new CoreModList());
-            MoreCrashInfo.logger.info("Callable list size {}", callables.size());
-            MoreCrashInfo.logger.info("Callable list member {}", callables.stream()
+            MoreCrashInfo.logger.debug("Callable list size {}", callables.size());
+            MoreCrashInfo.logger.debug("Callable list member {}", callables.stream()
                     .map(ISystemReportExtender::getLabel).collect(Collectors.joining(", ")));
 
             ReflectionHelper.printCallables();
-            ReflectionHelper.testCallables();
+//            ReflectionHelper.testCallables();
         } catch (Exception e) {
             MoreCrashInfo.logger.warn("Error register callable");
             MoreCrashInfo.logger.warn(e);
@@ -44,7 +44,7 @@ public class CrashHandler {
     // 1.16.5- net.minecraftforge.fml.CrashReportExtender.addCrashReportHeader
     // 1.17.1 net.minecraftforge.fmllegacy.CrashReportExtender.addCrashReportHeader
     public static void addCrashReportHeader(StringBuilder stringbuilder, net.minecraft.CrashReport crashReport) {
-        MoreCrashInfo.logger.info("CrashHandler.addCrashReportHeader");
+        MoreCrashInfo.logger.debug("CrashHandler.addCrashReportHeader");
         ReflectionHelper.printCallables();
         Throwable cause = crashReport.getException();//1.16.5- net.minecraft.crash.CrashReport.func_71505_b
         handler = Optional.ofNullable(handlers.get(cause.getClass()))
@@ -55,7 +55,7 @@ public class CrashHandler {
     // 1.16.5- net.minecraftforge.fml.CrashReportExtender.generateEnhancedStackTrace
     // 1.17.1 net.minecraftforge.fmllegacy.CrashReportExtender.generateEnhancedStackTrace
     public static String generateEnhancedStackTrace(final Throwable throwable) {
-        MoreCrashInfo.logger.info("CrashHandler.generateEnhancedStackTrace");
+        MoreCrashInfo.logger.debug("CrashHandler.generateEnhancedStackTrace");
         ReflectionHelper.printCallables();
         StringBuilder stringbuilder = new StringBuilder();
         handler.handleException(stringbuilder);

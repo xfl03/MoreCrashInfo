@@ -27,7 +27,7 @@ import java.util.zip.ZipFile;
 public class ModLocator extends AbstractJarFileModLocator {
     public static final Logger logger = LogManager.getLogger("MoreCrashInfoModLocator");
     private Path modPath = null;
-    private JarRemapper remapper = new JarRemapper();
+    private final JarRemapper remapper = new JarRemapper();
 
     private void unzip(ZipFile zip, ZipEntry entry, Path target) {
         try {
@@ -90,7 +90,7 @@ public class ModLocator extends AbstractJarFileModLocator {
             Constructor<?> constructor0 = null;
             for (Constructor<?> constructor : ModFile.class.getConstructors()) {
                 if (constructor.getParameterCount() == 2) {
-                    logger.info("Found constructor method");
+                    logger.debug("Found constructor method");
                     constructor0 = constructor;
                     break;
                 }
@@ -105,7 +105,7 @@ public class ModLocator extends AbstractJarFileModLocator {
             Method method0 = null;
             for (Method method : ModFile.class.getMethods()) {
                 if (method.getName().equals("newFMLInstance")) {
-                    logger.info("Found newFMLInstance method");
+                    logger.debug("Found newFMLInstance method");
                     method0 = method;
                     break;
                 }
@@ -131,7 +131,7 @@ public class ModLocator extends AbstractJarFileModLocator {
             Method method0 = null;
             for (Method method : clazz.getDeclaredMethods()) {
                 if (method.getName().equals("createFileSystem")) {
-                    logger.info("Found createFileSystem method");
+                    logger.debug("Found createFileSystem method");
                     method0 = method;
                     break;
                 }
@@ -145,7 +145,7 @@ public class ModLocator extends AbstractJarFileModLocator {
                     if (!modJars.containsKey(mf)) {
                         FileSystem fs = (FileSystem) method0.invoke(this, modFile);
                         modJars.put(mf, fs);
-                        logger.info("{} {} {} {}", mf, fs, isValid(mf), mf.identifyMods());
+                        logger.debug("{} {} {} {}", mf, fs, isValid(mf), mf.identifyMods());
                     }
                 }
                 return modFiles;
@@ -165,11 +165,11 @@ public class ModLocator extends AbstractJarFileModLocator {
     public Stream<Path> scanCandidates() {
         logger.info("We are now at MoreCrashInfo ModLocator");
         Path gameFolder = FMLPaths.GAMEDIR.get();
-        logger.info("Game folder {}", gameFolder);
+        logger.debug("Game folder {}", gameFolder);
         Path modFolder = FMLPaths.MODSDIR.get();
-        logger.info("Mod folder {}", modFolder);
+        logger.debug("Mod folder {}", modFolder);
         visitModDir(modFolder);
-        logger.info("Mod path {}", modPath);
+        logger.info("Core path {}", modPath);
         if (modPath == null) {
             return Stream.empty();
         }
@@ -183,7 +183,7 @@ public class ModLocator extends AbstractJarFileModLocator {
 
     @Override
     public String name() {
-        return "MoreCrashInfoModLocator";
+        return "MoreCrashInfoModLocator 1.13-1.16";
     }
 
     @Override

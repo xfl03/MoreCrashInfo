@@ -11,7 +11,7 @@ public abstract class CommonCrash implements ISystemReportExtender {
 
     public String get() {
         try {
-            System.out.println("Getting " + getLabel());
+//            System.out.println("Getting " + getLabel());
             return innerCall();
         } catch (Exception e) {
             System.out.println("Error getting crash detail");

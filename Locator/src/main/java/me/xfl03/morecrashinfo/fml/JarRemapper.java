@@ -39,7 +39,7 @@ public class JarRemapper {
         cr.accept(cv, 0);
         ClassWriter cw = new ClassWriter(0);
         cn.accept(cw);
-        ModLocator.logger.info("Remapped {}", cn.name);
+        ModLocator.logger.debug("Remapped {}", cn.name);
         return cw.toByteArray();
     }
 
@@ -65,7 +65,7 @@ public class JarRemapper {
                 zos.closeEntry();
             }
             zos.close();
-            ModLocator.logger.info("Remapped to {}", outFile);
+            ModLocator.logger.debug("Remapped to {}", outFile);
         } catch (Exception e) {
             ModLocator.logger.warn("Error remapping jar {} to {}", inFile, outFile);
             e.printStackTrace();

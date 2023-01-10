@@ -30,9 +30,18 @@ compileJava {
     targetCompatibility = "1.8"
 }
 
+configurations.configureEach {
+    transitive = false
+}
+
 dependencies {
     implementation("net.minecraftforge:fmlloader:1.19.3-44.1.2")
+    implementation("net.minecraftforge:forgespi:6.0.0")
+    implementation("org.ow2.asm:asm:9.3")
+    implementation("org.ow2.asm:asm-tree:9.3")
+    implementation("org.ow2.asm:asm-commons:9.3")
     implementation 'org.jetbrains:annotations:23.1.0'
+    implementation "org.apache.logging.log4j:log4j-api:2.19.0"
 }
 
 jar {

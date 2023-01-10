@@ -40,7 +40,7 @@ public class JarRemapper {
         cr.accept(cv, 0);
         ClassWriter cw = new ClassWriter(0);
         cn.accept(cw);
-        TransformerService.logger.info("Remapped {}", cn.name);
+        TransformerService.logger.debug("Remapped {}", cn.name);
         return cw.toByteArray();
     }
 
@@ -66,7 +66,7 @@ public class JarRemapper {
                 zos.closeEntry();
             }
             zos.close();
-            TransformerService.logger.info("Remapped to {}", outFile);
+            TransformerService.logger.debug("Remapped to {}", outFile);
         } catch (Exception e) {
             TransformerService.logger.warn("Error remapping jar {} to {}", inFile, outFile);
             e.printStackTrace();

@@ -32,20 +32,36 @@ public class ReflectionHelper {
 
     public static void printCallables() {
         List<ISystemReportExtender> callables = getCallables();
-        MoreCrashInfo.logger.info("Registered {} callables", callables.size());
-        MoreCrashInfo.logger.info(callables.stream()
+        MoreCrashInfo.logger.debug("Registered {} callables", callables.size());
+        MoreCrashInfo.logger.debug(callables.stream()
                 .map(ISystemReportExtender::getLabel).collect(Collectors.joining(", ")));
     }
 
     public static void testCallables() {
+        Method method = null;
+        try {
+            method = ISystemReportExtender.class.getMethod("call");
+            MoreCrashInfo.logger.debug("Method 'call' found");
+        } catch (Exception ignored) {
+        }
+        try {
+            method = ISystemReportExtender.class.getMethod("get");
+            MoreCrashInfo.logger.debug("Method 'get' found");
+        } catch (Exception ignored) {
+        }
+
+        if (method == null) {
+            MoreCrashInfo.logger.warn("Can't find callable method");
+            return;
+        }
+
         List<ISystemReportExtender> callables = getCallables();
         for (ISystemReportExtender callable : callables) {
             try {
-                Method method = ISystemReportExtender.class.getMethod("call");
-                MoreCrashInfo.logger.info(method.invoke(callable));
+                MoreCrashInfo.logger.debug(method.invoke(callable));
             } catch (Exception e) {
                 MoreCrashInfo.logger.warn("Error call callable {}", callable.getLabel());
-                e.printStackTrace();
+                MoreCrashInfo.logger.warn(e);
             }
         }
     }

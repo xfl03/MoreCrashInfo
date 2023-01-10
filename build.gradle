@@ -83,7 +83,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.19.3-44.1.2'
-    implementation project(":ForgeApi")
 }
 
 jar {

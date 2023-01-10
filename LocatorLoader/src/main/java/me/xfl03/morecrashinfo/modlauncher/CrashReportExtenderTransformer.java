@@ -43,7 +43,7 @@ public class CrashReportExtenderTransformer implements ITransformer<MethodNode> 
 
     @Override
     public @NotNull MethodNode transform(MethodNode input, ITransformerVotingContext context) {
-        TransformerService.logger.info("Transforming method {} {}", input.name, input.desc);
+        TransformerService.logger.debug("Transforming method {} {}", input.name, input.desc);
         return redirectStaticMethod(input, "me/xfl03/morecrashinfo/handler/CrashHandler");
     }
 
