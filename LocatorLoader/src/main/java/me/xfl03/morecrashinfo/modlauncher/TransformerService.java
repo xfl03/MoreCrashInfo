@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -52,18 +53,26 @@ public class TransformerService implements ITransformationService {
             }
             logger.debug("Minecraft version {} major {}",
                     VersionUtil.getMinecraftVersion(), VersionUtil.getMinecraftMajorVersion());
-            if (VersionUtil.getMinecraftMajorVersion() >= 17) {
-                logger.debug("Minecraft Version is 1.17-1.19, don't need extra Locator.");
-                return;
-            }
+//            if (VersionUtil.getMinecraftMajorVersion() >= 17) {
+//                logger.debug("Minecraft Version is 1.17-1.19, don't need extra Locator.");
+//                return;
+//            }
             Path mapped = gameDir.resolve(
                     String.format("tmp/MoreCrashInfo-Locator-%s.jar", VersionUtil.getMinecraftVersion()));
             JarRemapper remapper = new JarRemapper();
             remapper.processJar(modPath, mapped);
             try {
                 ClasspathHelper.add(Launcher.class.getClassLoader(), mapped);
+                return;
             } catch (Throwable e) {
-                logger.warn("Error while appendToClassPath");
+                logger.warn("Error while appendToClassPath {}", Launcher.class.getClassLoader());
+                logger.warn(e);
+            }
+            try {
+                Method method = ClassLoader.class.getMethod("getPlatformClassLoader");
+                ClasspathHelper.add((ClassLoader) method.invoke(null), mapped);
+            } catch (Throwable e) {
+                logger.warn("Error while appendToClassPath getPlatformClassLoader");
                 logger.warn(e);
             }
         }

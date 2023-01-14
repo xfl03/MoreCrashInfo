@@ -10,7 +10,8 @@ public class ModLocator extends AbstractJarFileModLocator {
     @Override
     public Stream<Path> scanCandidates() {
         TransformerService.logger.info("Core path {}", TransformerService.corePath);
-        return Stream.of(TransformerService.corePath);
+//        return Stream.of(TransformerService.corePath);
+        return Stream.empty();
     }
 
     @Override
