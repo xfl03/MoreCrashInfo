@@ -61,19 +61,23 @@ public class TransformerService implements ITransformationService {
                     String.format("tmp/MoreCrashInfo-Locator-%s.jar", VersionUtil.getMinecraftVersion()));
             JarRemapper remapper = new JarRemapper();
             remapper.processJar(modPath, mapped);
-            try {
-                ClasspathHelper.add(Launcher.class.getClassLoader(), mapped);
-                return;
-            } catch (Throwable e) {
-                logger.warn("Error while appendToClassPath {}", Launcher.class.getClassLoader());
-                logger.warn(e);
-            }
-            try {
-                Method method = ClassLoader.class.getMethod("getPlatformClassLoader");
-                ClasspathHelper.add((ClassLoader) method.invoke(null), mapped);
-            } catch (Throwable e) {
-                logger.warn("Error while appendToClassPath getPlatformClassLoader");
-                logger.warn(e);
+            if (VersionUtil.getMinecraftMajorVersion() < 17) {
+                //Before 1.17, we can add jar to AppClassLoader
+                try {
+                    ClasspathHelper.add(Launcher.class.getClassLoader(), mapped);
+                } catch (Throwable e) {
+                    logger.warn("Error while appendToClassPath {}", Launcher.class.getClassLoader());
+                    logger.warn(e);
+                }
+            } else {
+                //After 1.17, we need to add jar as module to PlatformClassLoader
+                try {
+                    Method method = ClassLoader.class.getMethod("getPlatformClassLoader");
+                    ClasspathHelper.add((ClassLoader) method.invoke(null), mapped);
+                } catch (Throwable e) {
+                    logger.warn("Error while appendToClassPath getPlatformClassLoader");
+                    logger.warn(e);
+                }
             }
         }
     }
