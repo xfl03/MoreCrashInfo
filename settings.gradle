@@ -5,5 +5,5 @@ pluginManagement {
     }
 }
 //include "CrashMaker"
-include "Locator"
-include "LocatorLoader"
+include "1Locator"
+include "2Loader"

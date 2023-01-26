@@ -73,8 +73,13 @@ This mod implemented a powerful ASM-based remapping and custom jar detection fea
 
 Please use Java 17+ in development or building environment.
 
+### Loading
+**Build(Gradle `Task`) -> Loader(ModLauncher `ITransformerService`) -> Locator(ForgeSPI `IModLocator`) -> Base(Forge `Mod`)**  
+
+In every `->`(3 times), our mod use ASM to operate bytecode in class file.
+
 ### Build
 ```shell
-./gradlew build
+./gradlew clean build remap
 ```
-Mod file is located at `LocatorLoader/build/libs`.
+Mod file is located at `build/libs/MoreCrashInfo-x.x.x.jar`.

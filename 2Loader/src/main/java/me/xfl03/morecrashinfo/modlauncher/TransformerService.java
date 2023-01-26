@@ -88,7 +88,9 @@ public class TransformerService implements ITransformationService {
         return Collections.singletonList(new CrashReportExtenderTransformer());
     }
 
-    public void beginScanning(IEnvironment environment) {
+    //ModLauncher 8
+    //it will be renamed to beginScanning in Gradle Build
+    public void beginScanningLegacy(IEnvironment environment) {
     }
 
     private Path modPath;
