@@ -1,17 +1,13 @@
 package me.xfl03.morecrashinfo.modlauncher;
 
 import cpw.mods.modlauncher.Launcher;
-import cpw.mods.modlauncher.api.IEnvironment;
-import cpw.mods.modlauncher.api.ITransformationService;
-import cpw.mods.modlauncher.api.ITransformer;
-import cpw.mods.modlauncher.api.IncompatibleEnvironmentException;
+import cpw.mods.modlauncher.api.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.InputStream;
-import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -70,10 +66,9 @@ public class TransformerService implements ITransformationService {
                     logger.warn(e);
                 }
             } else {
-                //After 1.17, we need to add jar as module to PlatformClassLoader
+                //After 1.17, we need to add jar as module to SERVICE Layer
                 try {
-                    Method method = ClassLoader.class.getMethod("getPlatformClassLoader");
-                    ClasspathHelper.add((ClassLoader) method.invoke(null), mapped);
+                    ModuleHelper.addModule(IModuleLayerManager.Layer.SERVICE, mapped);
                 } catch (Throwable e) {
                     logger.warn("Error while appendToClassPath getPlatformClassLoader");
                     logger.warn(e);
