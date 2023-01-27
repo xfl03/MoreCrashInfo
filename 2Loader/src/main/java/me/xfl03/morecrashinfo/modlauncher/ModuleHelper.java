@@ -20,19 +20,24 @@ public class ModuleHelper {
             throw new IllegalArgumentException("IModuleLayerManager not supported: " + handler);
         }
         ModuleLayerHandler moduleLayerHandler = (ModuleLayerHandler) handler;
-        removeCompletedLayers(moduleLayerHandler, layer);
+        EnumMap<IModuleLayerManager.Layer, ?> completedLayers = getCompletedLayers(moduleLayerHandler);
+        boolean alreadyBuilt = completedLayers.containsKey(layer);
+        if (alreadyBuilt) {
+            completedLayers.remove(layer);
+        }
         addToLayer(moduleLayerHandler, layer, jar);
-        moduleLayerHandler.buildLayer(layer);
-        TransformerService.logger.info("Added {} to {}", jar, layer);
+        if (alreadyBuilt) {
+            moduleLayerHandler.buildLayer(layer);
+        }
+        TransformerService.logger.info(
+                "Added {} to {} with {}", jar, layer, alreadyBuilt ? "Rebuilt" : "Not Build");
     }
 
-    private static void removeCompletedLayers(ModuleLayerHandler handler, IModuleLayerManager.Layer layer) {
+    private static EnumMap<IModuleLayerManager.Layer, ?> getCompletedLayers(ModuleLayerHandler handler) {
         try {
             Field field = ModuleLayerHandler.class.getDeclaredField("completedLayers");
             field.setAccessible(true);
-            EnumMap<IModuleLayerManager.Layer, ?> completedLayer =
-                    (EnumMap<IModuleLayerManager.Layer, ?>) field.get(handler);
-            completedLayer.remove(layer);
+            return (EnumMap<IModuleLayerManager.Layer, ?>) field.get(handler);
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
