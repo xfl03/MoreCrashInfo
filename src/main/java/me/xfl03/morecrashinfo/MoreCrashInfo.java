@@ -8,4 +8,7 @@ import org.apache.logging.log4j.Logger;
 public class MoreCrashInfo
 {
     public static Logger logger = LogManager.getLogger("MoreCrashInfo");
+    static {
+        logger.info("MoreCrashInfo Mod Loaded");
+    }
 }

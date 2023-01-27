@@ -33,7 +33,7 @@ public class TransformerService implements ITransformationService {
         logger.debug("We are now at MoreCrashInfo TransformationService");
     }
 
-    public static Path corePath;
+//    public static Path corePath;
 
     private Path gameDir;
 
@@ -57,6 +57,7 @@ public class TransformerService implements ITransformationService {
                     String.format("tmp/MoreCrashInfo-Locator-%s.jar", VersionUtil.getMinecraftVersion()));
             JarRemapper remapper = new JarRemapper();
             remapper.processJar(modPath, mapped);
+            logger.info("MoreCrashInfo TransformationService: {}", mapped);
             if (VersionUtil.getMinecraftMajorVersion() < 17) {
                 //Before 1.17, we can add jar to AppClassLoader
                 try {
@@ -119,11 +120,11 @@ public class TransformerService implements ITransformationService {
                 modPath = gameDir.resolve("tmp/MoreCrashInfo-Locator.jar");
                 unzip(zip, ze, modPath);
             }
-            ze = zip.getEntry("MoreCrashInfo-Core.jar");
-            if (ze != null) {
-                corePath = gameDir.resolve("tmp/MoreCrashInfo-Core.jar");
-                unzip(zip, ze, corePath);
-            }
+//            ze = zip.getEntry("MoreCrashInfo-Core.jar");
+//            if (ze != null) {
+//                corePath = gameDir.resolve("tmp/MoreCrashInfo-Core.jar");
+//                unzip(zip, ze, corePath);
+//            }
         } catch (Exception e) {
             logger.warn("Error while loading {}", path);
             logger.warn(e);

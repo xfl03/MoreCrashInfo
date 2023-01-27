@@ -54,7 +54,7 @@ Error Info:
 ```
 
 ## Compatibility
-- Minecraft 1.13.2~1.16.5 & 1.18~1.19.3 with Forge
+- Minecraft 1.13.2~1.19.3 with Forge
 - Java 8~19
 
 ### Tested Environment
@@ -63,6 +63,7 @@ Error Info:
 |:---------:|:--------:|:----:|
 |  1.19.3   |  44.1.2  |  17  |
 |  1.18.2   |  40.2.0  |  17  |
+|  1.17.1   |  37.1.1  |  17  |
 |  1.16.5   | 36.2.39  |  8   |
 |  1.15.2   | 31.2.57  |  8   |
 |  1.14.4   | 28.2.26  |  8   |
@@ -77,6 +78,7 @@ Please use Java 17+ in development or building environment.
 **Build(Gradle `Task`) -> Loader(ModLauncher `ITransformerService`) -> Locator(ForgeSPI `IModLocator`) -> Base(Forge `Mod`)**  
 
 In every `->`(3 times), our mod use ASM to operate bytecode in class file.
+Loader will try to add Locator into classpath, which will make `IModLocator` could be found by ServiceLoader. Our method can suite Java 8-19 and Module Layer with ModLauncher.
 
 ### Build
 ```shell

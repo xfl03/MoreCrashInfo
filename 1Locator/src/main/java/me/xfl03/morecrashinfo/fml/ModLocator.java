@@ -169,7 +169,7 @@ public class ModLocator extends AbstractJarFileModLocator {
         Path modFolder = FMLPaths.MODSDIR.get();
         logger.debug("Mod folder {}", modFolder);
         visitModDir(modFolder);
-        logger.info("Core path {}", modPath);
+        logger.debug("Core path {}", modPath);
         if (modPath == null) {
             return Stream.empty();
         }
@@ -178,6 +178,7 @@ public class ModLocator extends AbstractJarFileModLocator {
         Path mapped = gameFolder.resolve(
                 String.format("tmp/MoreCrashInfo-Core-%s.jar", VersionUtil.getMinecraftVersion()));
         remapper.processJar(modPath, mapped);
+        logger.info("MoreCrashInfo ModLocator: {}", mapped);
         return Stream.of(mapped);
     }
 
